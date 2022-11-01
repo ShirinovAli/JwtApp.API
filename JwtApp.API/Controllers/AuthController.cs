@@ -1,8 +1,10 @@
 ﻿using JwtApp.API.Core.Application.Features.CQRS.Commands;
 using JwtApp.API.Core.Application.Features.CQRS.Queries;
+using JwtApp.API.Infrastructure.Tools;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace JwtApp.API.Controllers
 {
@@ -30,8 +32,10 @@ namespace JwtApp.API.Controllers
             var userDto = await _mediator.Send(request);
             if (userDto.IsExists)
             {
-                return Created("", 123);
-            }
+                var token = JwtTokenGenerator.GenerateToken(userDto);
+                //handler.WriteToken();
+                return Created("", token);
+            } 
             return BadRequest("Username or Password is not valid");
         }
     }
