@@ -2,12 +2,14 @@
 using JwtApp.API.Core.Application.Features.CQRS.Queries;
 using JwtApp.API.Infrastructure.Tools;
 using MediatR;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace JwtApp.API.Controllers
 {
+    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
